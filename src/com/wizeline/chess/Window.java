@@ -558,38 +558,35 @@ public class Window{
                         sb.append( to+2 );
                 result.add( sb.toString() );
             }
+            int left = begin-1;
+            int right = begin+1;
+
+            int end = to;
+            if ( turn.equals( "w" ) )
+                end+=1;
             else
+                end-=1;
+
+            StringBuilder sb = new StringBuilder(  );
+            if ( left>=97 )
             {
-                int left = begin-1;
-                int right = begin+1;
-
-                int end = to;
-                if ( turn.equals( "w" ) )
-                    end+=1;
-                else
-                    end-=1;
-
-                StringBuilder sb = new StringBuilder(  );
-                if ( left>=97 )
-                {
-                    sb.append( (char)left );
-                    sb.append( end );
-                    result.add( sb.toString() );
-                }
-                sb = new StringBuilder(  );
-                if ( right<=107 )
-                {
-                    sb.append( (char)right );
-                    sb.append( end );
-                    result.add( sb.toString() );
-                }
-
-                sb= new StringBuilder(  );
-
-                sb.append( (char)begin );
+                sb.append( (char)left );
                 sb.append( end );
                 result.add( sb.toString() );
             }
+            sb = new StringBuilder(  );
+            if ( right<=107 )
+            {
+                sb.append( (char)right );
+                sb.append( end );
+                result.add( sb.toString() );
+            }
+
+            sb= new StringBuilder(  );
+
+            sb.append( (char)begin );
+            sb.append( end );
+            result.add( sb.toString() );
             return result;
         }
 
