@@ -11,12 +11,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addMouseListener;
 
@@ -280,11 +275,19 @@ public class Window{
                         {
                             //violation
                             textField.setText( "PLEASE DON'T KILL YOURSELF" );
+                            return;
                         }
 
                         else
                         {
                             System.out.println("Log Message: Player "+turn+" killed Player "+toTurn +" and piece destroyed: "+ toPiece.substring( 1,2 ));
+                        }
+
+                        if ( toPiece.substring( 1,2 ).equals( "K" ) )
+                        {
+                            JOptionPane.showMessageDialog(frame, "Player "+turn+" wins!!!" );
+                            frame.setVisible(false); //you can't see me!
+                            frame.dispose();
                         }
                     }
                     board.pieces.remove( result[0] );
@@ -302,6 +305,7 @@ public class Window{
             else
             {
                 textField.setText( "VIOLATION: INVALID INPUT" );
+                return;
             }
         }
 
@@ -323,6 +327,9 @@ public class Window{
                     result.add( sb.toString() );
                 else if ( isPresent )
                     isSet = true;
+
+                if ( sb.toString().equals( to ) )
+                    isSet = true;
             }
 
             isSet = false;
@@ -336,6 +343,9 @@ public class Window{
                 if ( !isPresent && !isSet )
                     result.add( sb.toString() );
                 else if ( isPresent )
+                    isSet = true;
+
+                if ( sb.toString().equals( to ) )
                     isSet = true;
             }
             isSet = false;
@@ -351,6 +361,8 @@ public class Window{
                     result.add( sb.toString() );
                 else if ( isPresent )
                     isSet = true;
+                if ( sb.toString().equals( to ) )
+                    isSet = true;
             }
 
             isSet = false;
@@ -364,6 +376,8 @@ public class Window{
                 if ( !isPresent && !isSet )
                     result.add( sb.toString() );
                 else if ( isPresent )
+                    isSet = true;
+                if ( sb.toString().equals( to ) )
                     isSet = true;
             }
             return result;
@@ -389,9 +403,11 @@ public class Window{
                     upw.append( (char) i);
                     upw.append( up );
                     boolean isPresentUp = board.pieces.containsKey( upw.toString() ) & !upw.toString().equals( from ) &!upw.toString().equals( to );
-                    if ( !isPresentUp && !isSetUp )
+                    if ( !isPresentUp && !isSetUp  )
                     {
                         result.add( upw.toString() );
+                        if ( upw.toString().equals( to ) )
+                            isSetUp = true;
                     }
 
                     else if ( isPresentUp )
@@ -406,6 +422,8 @@ public class Window{
                     if ( !isPresentDown && !isSetDown)
                     {
                         result.add( dwn.toString() );
+                        if ( dwn.toString().equals( to ) )
+                            isSetDown = true;
                     }
 
                     else if ( isPresentDown )
@@ -430,6 +448,8 @@ public class Window{
                     if ( !isPresentUp && !isSetUp )
                     {
                         result.add( upw.toString() );
+                        if ( upw.toString().equals( to ) )
+                            isSetUp = true;
                     }
 
                     else if ( isPresentUp )
@@ -444,6 +464,8 @@ public class Window{
                     if ( !isPresentDown && !isSetDown)
                     {
                         result.add( dwn.toString() );
+                        if ( dwn.toString().equals( to ) )
+                            isSetDown = true;
                     }
 
                     else if ( isPresentDown )
@@ -625,11 +647,11 @@ public class Window{
                     sb = new StringBuilder();
 
                     sb.append( ( char ) ( begin - 1 ) );
-                    sb.append( end - 1 );
+                    sb.append( end + 1 );
                     result.add( sb.toString() );
                 }
             }
-
+            sb= new StringBuilder(  );
             if ( begin + 1 <= 104 )
             {
                 sb.append( ( char ) ( begin + 1 ) );
