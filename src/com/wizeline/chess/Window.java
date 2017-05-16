@@ -112,7 +112,7 @@ public class Window{
     {
         board.pieces.put( "d8" ,"bQ");
         board.pieces.put( "e8" ,"bK");
-        board.pieces.put( "d5" ,"wQ");
+        board.pieces.put( "e1" ,"wQ");
         board.pieces.put( "d1" ,"wK");
         addPawn();
     }
